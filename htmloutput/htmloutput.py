@@ -93,7 +93,7 @@ class TemplateData(object):
     }
 
     DEFAULT_TITLE = u'单元测试报告'
-    DEFAULT_DESCRIPTION = ''
+    DEFAULT_DESCRIPTION = u''
 
     # ------------------------------------------------------------------------
     # HTML Template
@@ -530,7 +530,7 @@ class HtmlOutput(Plugin):
         a_lines = []
         for name, value in report_attrs:
             line = TemplateData.HEADING_ATTRIBUTE_TMPL % dict(
-                    name = saxutils.escape(name),
+                    name = saxutils.escape(name.encode('utf8')),
                     value = saxutils.escape(value),
                 )
             a_lines.append(line)
@@ -562,14 +562,14 @@ class HtmlOutput(Plugin):
 
             row = TemplateData.REPORT_CLASS_TMPL % dict(
                 style = ne > 0 and 'errorClass' or nf > 0 and 'failClass' or 'passClass',
-                desc = desc,
+                desc = desc.encode('utf8'),
                 count = np+nf+ne,
                 Pass = np,
                 fail = nf,
                 error = ne,
                 cid = 'c%s' % (cid+1),
             )
-            rows.append(row)
+            rows.append(row.encode('utf8'))
 
             for tid, (n,t,o,e) in enumerate(cls_results):
                 self._generate_report_test(rows, cid, tid, n, t, o, e)

@@ -1,3 +1,7 @@
+The UTF-8 version of the nose-html-output
+
+The code is from: https://github.com/cboylan/nose-html-output
+
 A plugin for nosetests that will write out test results to results.html. The
 code is adapted from the example html output plugin at
 https://github.com/nose-devs/nose/blob/master/examples/html_plugin/htmlplug.py

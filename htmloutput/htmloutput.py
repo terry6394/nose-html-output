@@ -1,3 +1,4 @@
+#encoding:utf-8
 """
 A plugin for nosetests that will write out test results to results.html. The
 code is adapted from the example html output plugin at
@@ -91,13 +92,13 @@ class TemplateData(object):
     2: 'error',
     }
 
-    DEFAULT_TITLE = 'Unit Test Report'
+    DEFAULT_TITLE = u'单元测试报告'
     DEFAULT_DESCRIPTION = ''
 
     # ------------------------------------------------------------------------
     # HTML Template
 
-    HTML_TMPL = r"""<?xml version="1.0" encoding="UTF-8"?>
+    HTML_TMPL = ur"""<?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
@@ -424,10 +425,10 @@ a.popup_link:hover {
 
 class HtmlOutput(Plugin):
     """Output test results in html."""
-    
+
     name = 'html-output'
     score = 2 # run late
-    
+
     def __init__(self):
         super(HtmlOutput, self).__init__()
         self.success_count = 0
@@ -458,7 +459,7 @@ class HtmlOutput(Plugin):
         if output is None:
             output = test.id()
         self.result.append((0, test, output, ''))
-        
+
     def addError(self, test, err):
         self.error_count += 1
         _exc_str = self.formatErr(err)
@@ -466,7 +467,7 @@ class HtmlOutput(Plugin):
         if output is None:
             output = test.id()
         self.result.append((2, test, output, _exc_str))
-            
+
     def addFailure(self, test, err):
         self.failure_count += 1
         _exc_str = self.formatErr(err)
@@ -611,13 +612,13 @@ class HtmlOutput(Plugin):
         if isinstance(o,str):
             # TODO: some problem with 'string_escape': it escape \n and mess up formating
             # uo = unicode(o.encode('string_escape'))
-            uo = o.decode('latin-1')
+            uo = o.decode('utf8')
         else:
             uo = o
         if isinstance(e,str):
             # TODO: some problem with 'string_escape': it escape \n and mess up formating
             # ue = unicode(e.encode('string_escape'))
-            ue = e.decode('latin-1')
+            ue = e.decode('utf8')
         else:
             ue = e
 
@@ -630,7 +631,7 @@ class HtmlOutput(Plugin):
             tid = tid,
             Class = (n == 0 and 'hiddenRow' or 'none'),
             style = n == 2 and 'errorCase' or (n == 1 and 'failCase' or 'none'),
-            desc = desc,
+            desc = desc.decode('utf8'),
             script = script,
             status = TemplateData.STATUS[n],
         )

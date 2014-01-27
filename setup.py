@@ -1,6 +1,5 @@
 import htmloutput.version
 import setuptools
-
 setuptools.setup(
     name="nosehtmloutput",
     version=htmloutput.version.__version__,
@@ -20,9 +19,9 @@ setuptools.setup(
         "Operating System :: OS Independent",
         "Programming Language :: Python"
     ],
-    entry_points = {
+    entry_points={
         'nose.plugins.0.10': [
-            'html-output = htmloutput.htmloutput:HtmlOutput'
+        'html-output = htmloutput.htmloutput:HtmlOutput'
         ]
     }
 )
